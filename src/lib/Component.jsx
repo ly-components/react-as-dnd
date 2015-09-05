@@ -3,7 +3,12 @@ import React from 'react';
 export default class Draggable extends React.Component {
 	static displayName = 'Draggable'
 	static propTypes = {
+		axis: React.PropTypes.oneOf(['both', 'x', 'y']),
 		children: React.PropTypes.node,
+		grid: React.PropTypes.shape({
+			x: React.PropTypes.number,
+			y: React.PropTypes.number
+		}),
 		start: React.PropTypes.shape({
 			x: React.PropTypes.number,
 			y: React.PropTypes.number
@@ -13,7 +18,12 @@ export default class Draggable extends React.Component {
 		start: {
 			x: 0,
 			y: 0
-		}
+		},
+		grid: {
+			x: 1,
+			y: 1
+		},
+		axis: 'both'
 	}
 	constructor(props) {
 		super();
@@ -50,9 +60,15 @@ export default class Draggable extends React.Component {
 		this.setState(state);
 	}
 	_handleMouseMove(e) {
+		var {
+			axis,
+			grid
+		} = this.props;
+		var axisX = axis === 'both' || axis === 'x' || false;
+		var axisY = axis === 'both' || axis === 'y' || false;
 		this.setState({
-			offsetX: e.pageX - this.state.dragStartX,
-			offsetY: e.pageY - this.state.dragStartY
+			offsetX: axisX ? (Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x) : 0,
+			offsetY: axisY ? (Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y) : 0
 		});
 	}
 	_handleMouseUp() {

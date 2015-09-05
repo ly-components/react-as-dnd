@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e1f5f434bbaf4e0c8057"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "772f053870bd42b2cc3f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7977,6 +7977,11 @@
 	  start: {
 	    x: 300,
 	    y: 300
+	  },
+	  axis: 'both',
+	  grid: {
+	    x: 50,
+	    y: 50
 	  }
 	};
 
@@ -28872,9 +28877,15 @@
 		}, {
 			key: '_handleMouseMove',
 			value: function _handleMouseMove(e) {
+				var _props = this.props;
+				var axis = _props.axis;
+				var grid = _props.grid;
+
+				var axisX = axis === 'both' || axis === 'x' || false;
+				var axisY = axis === 'both' || axis === 'y' || false;
 				this.setState({
-					offsetX: e.pageX - this.state.dragStartX,
-					offsetY: e.pageY - this.state.dragStartY
+					offsetX: axisX ? Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x : 0,
+					offsetY: axisY ? Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y : 0
 				});
 			}
 		}, {
@@ -28911,7 +28922,12 @@
 		}, {
 			key: 'propTypes',
 			value: {
+				axis: _react2['default'].PropTypes.oneOf(['both', 'x', 'y']),
 				children: _react2['default'].PropTypes.node,
+				grid: _react2['default'].PropTypes.shape({
+					x: _react2['default'].PropTypes.number,
+					y: _react2['default'].PropTypes.number
+				}),
 				start: _react2['default'].PropTypes.shape({
 					x: _react2['default'].PropTypes.number,
 					y: _react2['default'].PropTypes.number
@@ -28924,7 +28940,12 @@
 				start: {
 					x: 0,
 					y: 0
-				}
+				},
+				grid: {
+					x: 1,
+					y: 1
+				},
+				axis: 'both'
 			},
 			enumerable: true
 		}]);

@@ -5,6 +5,11 @@ var config = {
   start: {
     x: 300,
     y: 300
+  },
+  axis: 'both',
+  grid: {
+    x: 50,
+    y: 50
   }
 };
 
