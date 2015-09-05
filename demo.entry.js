@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "772f053870bd42b2cc3f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "faccff51cadaf0fc2506"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7982,7 +7982,12 @@
 	  grid: {
 	    x: 50,
 	    y: 50
-	  }
+	  },
+	  limit: {
+	    x: [0, 300],
+	    y: [0, 300]
+	  },
+	  shadow: true
 	};
 
 	_react2['default'].render(_react2['default'].createElement(
@@ -7995,7 +8000,7 @@
 	  )
 	), document.getElementById('demo'));
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(227), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "demo.jsx" + ": " + err.message); } }); } } })(); }
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "demo.jsx" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
@@ -28797,12 +28802,12 @@
 
 	var _libComponent2 = _interopRequireDefault(_libComponent);
 
-	__webpack_require__(230);
+	__webpack_require__(231);
 
 	exports['default'] = _libComponent2['default'];
 	module.exports = exports['default'];
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(227), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
@@ -28812,7 +28817,7 @@
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
 
 	Object.defineProperty(exports, '__esModule', {
-		value: true
+	  value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -28829,144 +28834,221 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _getSize = __webpack_require__(227);
+
+	function range(val, min, max) {
+	  val = val > max ? max : val;
+	  val = val < min ? min : val;
+	  return val;
+	}
+
 	var Draggable = (function (_React$Component) {
-		function Draggable(props) {
-			_classCallCheck(this, Draggable);
+	  function Draggable(props) {
+	    _classCallCheck(this, Draggable);
 
-			_get(Object.getPrototypeOf(Draggable.prototype), 'constructor', this).call(this);
-			this.state = this._initState(props);
-			this._handleMouseDown = this._handleMouseDown.bind(this);
-			this._handleMouseMove = this._handleMouseMove.bind(this);
-			this._handleMouseUp = this._handleMouseUp.bind(this);
-		}
+	    _get(Object.getPrototypeOf(Draggable.prototype), 'constructor', this).call(this);
+	    this.state = this._initState(props);
+	    this._handleMouseDown = this._handleMouseDown.bind(this);
+	    this._handleMouseMove = this._handleMouseMove.bind(this);
+	    this._handleMouseUp = this._handleMouseUp.bind(this);
+	  }
 
-		_inherits(Draggable, _React$Component);
+	  _inherits(Draggable, _React$Component);
 
-		_createClass(Draggable, [{
-			key: 'componentWillReceiveProps',
-			value: function componentWillReceiveProps(props) {
-				if (props.start) this.setState(this._initState(props));
-			}
-		}, {
-			key: '_initState',
-			value: function _initState(props) {
-				return {
-					dragging: false,
-					offsetX: 0,
-					offsetY: 0,
-					clientX: props.start.x,
-					clientY: props.start.y
-				};
-			}
-		}, {
-			key: '_handleMouseDown',
-			value: function _handleMouseDown(e) {
-				var state = {
-					dragging: true,
-					dragStartX: e.pageX,
-					dragStartY: e.pageY,
-					offsetX: 0,
-					offsetY: 0,
-					clientX: this.state.clientX,
-					clientY: this.state.clientY
-				};
-				document.addEventListener('mousemove', this._handleMouseMove, false);
-				document.addEventListener('mouseup', this._handleMouseUp, false);
-				this.setState(state);
-			}
-		}, {
-			key: '_handleMouseMove',
-			value: function _handleMouseMove(e) {
-				var _props = this.props;
-				var axis = _props.axis;
-				var grid = _props.grid;
+	  _createClass(Draggable, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(props) {
+	      if (props.start) this.setState(this._initState(props));
+	    }
+	  }, {
+	    key: '_initState',
+	    value: function _initState(props) {
+	      return {
+	        dragging: false,
+	        offsetX: 0,
+	        offsetY: 0,
+	        x: props.start.x,
+	        y: props.start.y
+	      };
+	    }
+	  }, {
+	    key: '_handleMouseDown',
+	    value: function _handleMouseDown(e) {
+	      var state = {
+	        dragging: true,
+	        dragStartX: e.pageX,
+	        dragStartY: e.pageY,
+	        offsetX: 0,
+	        offsetY: 0
+	      };
+	      var elSize = (0, _getSize.getOuterSize)(_react2['default'].findDOMNode(this).querySelector('.react-as-dnd-content'));
+	      var limit = this.props.limit;
+	      if (!limit) this._limitOffset = {
+	        x: [-Infinity, Infinity],
+	        y: [-Infinity, Infinity]
+	      };else if (limit === 'parent') {
+	        var parentSize = (0, _getSize.getInnerSize)(_react2['default'].findDOMNode(this).offsetParent);
+	        this._limitOffset = {
+	          x: [-this.state.x, parentSize.width - this.state.x - elSize.width],
+	          y: [-this.state.y, parentSize.height - this.state.y - elSize.height]
+	        };
+	      } else this._limitOffset = {
+	        x: [limit.x[0] - this.state.x, limit.x[1] - this.state.x],
+	        y: [limit.y[0] - this.state.y, limit.y[1] - this.state.y]
+	      };
+	      document.addEventListener('mousemove', this._handleMouseMove, false);
+	      document.addEventListener('mouseup', this._handleMouseUp, false);
+	      this.setState(state);
+	    }
+	  }, {
+	    key: '_handleMouseMove',
+	    value: function _handleMouseMove(e) {
+	      var _props = this.props;
+	      var axis = _props.axis;
+	      var grid = _props.grid;
 
-				var axisX = axis === 'both' || axis === 'x' || false;
-				var axisY = axis === 'both' || axis === 'y' || false;
-				this.setState({
-					offsetX: axisX ? Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x : 0,
-					offsetY: axisY ? Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y : 0
-				});
-			}
-		}, {
-			key: '_handleMouseUp',
-			value: function _handleMouseUp() {
-				document.removeEventListener('mousemove', this._handleMouseMove);
-				document.removeEventListener('mouseup', this._handleMouseUp);
-				this.setState({
-					dragging: false,
-					offsetX: 0,
-					offsetY: 0,
-					clientX: this.state.offsetX + this.state.clientX,
-					clientY: this.state.offsetY + this.state.clientY
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var style = {
-					position: 'absolute',
-					left: this.state.clientX + this.state.offsetX,
-					top: this.state.clientY + this.state.offsetY
-				};
-				return _react2['default'].createElement(
-					'div',
-					{ className: 'react-as-dnd', onMouseDown: !this.state.dragging && this._handleMouseDown, style: style },
-					this.props.children
-				);
-			}
-		}], [{
-			key: 'displayName',
-			value: 'Draggable',
-			enumerable: true
-		}, {
-			key: 'propTypes',
-			value: {
-				axis: _react2['default'].PropTypes.oneOf(['both', 'x', 'y']),
-				children: _react2['default'].PropTypes.node,
-				grid: _react2['default'].PropTypes.shape({
-					x: _react2['default'].PropTypes.number,
-					y: _react2['default'].PropTypes.number
-				}),
-				start: _react2['default'].PropTypes.shape({
-					x: _react2['default'].PropTypes.number,
-					y: _react2['default'].PropTypes.number
-				})
-			},
-			enumerable: true
-		}, {
-			key: 'defaultProps',
-			value: {
-				start: {
-					x: 0,
-					y: 0
-				},
-				grid: {
-					x: 1,
-					y: 1
-				},
-				axis: 'both'
-			},
-			enumerable: true
-		}]);
+	      var axisX = axis === 'both' || axis === 'x' || false;
+	      var axisY = axis === 'both' || axis === 'y' || false;
+	      var limit = this._limitOffset;
+	      this.setState({
+	        offsetX: axisX ? range(Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x, limit.x[0], limit.x[1]) : 0,
+	        offsetY: axisY ? range(Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y, limit.y[0], limit.y[1]) : 0
+	      });
+	    }
+	  }, {
+	    key: '_handleMouseUp',
+	    value: function _handleMouseUp() {
+	      document.removeEventListener('mousemove', this._handleMouseMove);
+	      document.removeEventListener('mouseup', this._handleMouseUp);
+	      this.setState({
+	        dragging: false,
+	        offsetX: 0,
+	        offsetY: 0,
+	        x: this.state.offsetX + this.state.x,
+	        y: this.state.offsetY + this.state.y
+	      });
+	      delete this._limitOffset;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'react-as-dnd' },
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'react-as-dnd-content', onMouseDown: !this.state.dragging && this._handleMouseDown, style: {
+	              position: 'absolute',
+	              left: this.props.shadow ? this.state.x : this.state.x + this.state.offsetX,
+	              top: this.props.shadow ? this.state.y : this.state.y + this.state.offsetY
+	            } },
+	          this.props.children
+	        ),
+	        this.props.shadow && this.state.dragging && _react2['default'].createElement(
+	          'div',
+	          { className: 'react-as-dnd-shadow', style: {
+	              position: 'absolute',
+	              opacity: 0.5,
+	              left: this.state.x + this.state.offsetX,
+	              top: this.state.y + this.state.offsetY
+	            } },
+	          _react2['default'].cloneElement(_react2['default'].Children.only(this.props.children))
+	        )
+	      );
+	    }
+	  }], [{
+	    key: 'displayName',
+	    value: 'Draggable',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: {
+	      axis: _react2['default'].PropTypes.oneOf(['both', 'x', 'y']),
+	      children: _react2['default'].PropTypes.node,
+	      grid: _react2['default'].PropTypes.shape({
+	        x: _react2['default'].PropTypes.number,
+	        y: _react2['default'].PropTypes.number
+	      }),
+	      limit: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.shape({
+	        x: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number),
+	        y: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)
+	      }), _react2['default'].PropTypes.string]),
+	      shadow: _react2['default'].PropTypes.bool,
+	      start: _react2['default'].PropTypes.shape({
+	        x: _react2['default'].PropTypes.number,
+	        y: _react2['default'].PropTypes.number
+	      })
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'defaultProps',
+	    value: {
+	      start: {
+	        x: 0,
+	        y: 0
+	      },
+	      grid: {
+	        x: 1,
+	        y: 1
+	      },
+	      axis: 'both',
+	      limit: null,
+	      shadow: true
+	    },
+	    enumerable: true
+	  }]);
 
-		return Draggable;
+	  return Draggable;
 	})(_react2['default'].Component);
 
 	exports['default'] = Draggable;
 	module.exports = exports['default'];
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(227), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Component.jsx" + ": " + err.message); } }); } } })(); }
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Component.jsx" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
 /* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	function getInnerSize(el) {
+	  var computedStyle = window.getComputedStyle(el);
+	  return {
+	    width: el.clientHeight - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight),
+	    height: el.clientWidth - parseFloat(computedStyle.paddingTop) - parseFloat(computedStyle.paddingBottom)
+	  };
+	}
+
+	function getOuterSize(el) {
+	  var computedStyle = window.getComputedStyle(el);
+	  return {
+	    width: el.clientHeight + parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderLeftWidth),
+	    height: el.clientWidth + parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth)
+	  };
+	}
+
+	exports["default"] = {
+	  getInnerSize: getInnerSize,
+	  getOuterSize: getOuterSize
+	};
+	module.exports = exports["default"];
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "getSize.jsx" + ": " + err.message); } }); } } })(); }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var isReactClassish = __webpack_require__(228),
-	    isReactElementish = __webpack_require__(229);
+	var isReactClassish = __webpack_require__(229),
+	    isReactElementish = __webpack_require__(230);
 
 	function makeExportsHot(m, React) {
 	  if (isReactElementish(m.exports, React)) {
@@ -29013,7 +29095,7 @@
 
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function hasRender(Class) {
@@ -29063,10 +29145,10 @@
 	module.exports = isReactClassish;
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isReactClassish = __webpack_require__(228);
+	var isReactClassish = __webpack_require__(229);
 
 	function isReactElementish(obj, React) {
 	  if (!obj) {
@@ -29080,23 +29162,23 @@
 	module.exports = isReactElementish;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(231);
+	var content = __webpack_require__(232);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(233)(content, {});
+	var update = __webpack_require__(234)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(231, function() {
-				var newContent = __webpack_require__(231);
+			module.hot.accept(232, function() {
+				var newContent = __webpack_require__(232);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -29106,14 +29188,14 @@
 	}
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(232)();
+	exports = module.exports = __webpack_require__(233)();
 	exports.push([module.id, "", ""]);
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29169,7 +29251,7 @@
 
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

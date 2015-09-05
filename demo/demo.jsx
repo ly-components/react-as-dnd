@@ -12,9 +12,10 @@ var config = {
     y: 50
   },
   limit: {
-    x: [0, 600],
-    y: [0, 600]
-  }
+    x: [0, 300],
+    y: [0, 300]
+  },
+  shadow: true
 };
 
 React.render(
