@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "faccff51cadaf0fc2506"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d5afac07c4a43372b0c8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7987,7 +7987,8 @@
 	    x: [0, 300],
 	    y: [0, 300]
 	  },
-	  shadow: true
+	  shadow: true,
+	  dragger: '.header'
 	};
 
 	_react2['default'].render(_react2['default'].createElement(
@@ -7996,7 +7997,12 @@
 	  _react2['default'].createElement(
 	    _srcIndex2['default'],
 	    config,
-	    _react2['default'].createElement('div', { className: 'content' })
+	    _react2['default'].createElement(
+	      'div',
+	      { className: 'content' },
+	      _react2['default'].createElement('div', { className: 'header' }),
+	      _react2['default'].createElement('div', { className: 'content' })
+	    )
 	  )
 	), document.getElementById('demo'));
 
@@ -28872,8 +28878,16 @@
 	      };
 	    }
 	  }, {
+	    key: '_matchSelector',
+	    value: function _matchSelector(el, selector) {
+	      return ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].reduce(function (rst, method) {
+	        return rst || typeof el[method] === 'function' && el[method].call(el, selector);
+	      }, false);
+	    }
+	  }, {
 	    key: '_handleMouseDown',
 	    value: function _handleMouseDown(e) {
+	      if (this.props.dragger && !this._matchSelector(e.target, this.props.dragger)) return;
 	      var state = {
 	        dragging: true,
 	        dragStartX: e.pageX,
@@ -28965,6 +28979,7 @@
 	    value: {
 	      axis: _react2['default'].PropTypes.oneOf(['both', 'x', 'y']),
 	      children: _react2['default'].PropTypes.node,
+	      dragger: _react2['default'].PropTypes.string,
 	      grid: _react2['default'].PropTypes.shape({
 	        x: _react2['default'].PropTypes.number,
 	        y: _react2['default'].PropTypes.number
@@ -28972,7 +28987,7 @@
 	      limit: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.shape({
 	        x: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number),
 	        y: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)
-	      }), _react2['default'].PropTypes.string]),
+	      }), _react2['default'].PropTypes.oneOf(['parent', null])]),
 	      shadow: _react2['default'].PropTypes.bool,
 	      start: _react2['default'].PropTypes.shape({
 	        x: _react2['default'].PropTypes.number,
@@ -28991,6 +29006,7 @@
 	        x: 1,
 	        y: 1
 	      },
+	      dragger: null,
 	      axis: 'both',
 	      limit: null,
 	      shadow: true

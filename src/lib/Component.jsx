@@ -17,6 +17,7 @@ export default class Draggable extends React.Component {
       'both', 'x', 'y'
     ]),
     children: React.PropTypes.node,
+    dragger: React.PropTypes.string,
     grid: React.PropTypes.shape({
       x: React.PropTypes.number,
       y: React.PropTypes.number
@@ -25,7 +26,8 @@ export default class Draggable extends React.Component {
       React.PropTypes.shape({
         x: React.PropTypes.arrayOf(React.PropTypes.number),
         y: React.PropTypes.arrayOf(React.PropTypes.number)
-      }), React.PropTypes.string
+      }),
+      React.PropTypes.oneOf(['parent', null])
     ]),
     shadow: React.PropTypes.bool,
     start: React.PropTypes.shape({
@@ -42,6 +44,7 @@ export default class Draggable extends React.Component {
       x: 1,
       y: 1
     },
+    dragger: null,
     axis: 'both',
     limit: null,
     shadow: true
@@ -66,7 +69,12 @@ export default class Draggable extends React.Component {
       y: props.start.y
     };
   }
+  _matchSelector(el, selector) {
+    return ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].reduce((rst, method) => rst || (typeof el[method] === 'function' && el[method].call(el, selector)), false);
+  }
   _handleMouseDown(e) {
+    if(this.props.dragger && !this._matchSelector(e.target, this.props.dragger))
+      return;
     var state = {
       dragging: true,
       dragStartX: e.pageX,

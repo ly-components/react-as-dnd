@@ -15,13 +15,17 @@ var config = {
     x: [0, 300],
     y: [0, 300]
   },
-  shadow: true
+  shadow: true,
+  dragger: '.header'
 };
 
 React.render(
   <div className="container">
     <Component {...config}>
-      <div className="content"></div>
+      <div className="content">
+        <div className="header"></div>
+        <div className="content"></div>
+      </div>
     </Component>
   </div>,
   document.getElementById('demo')
