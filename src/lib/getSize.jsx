@@ -1,8 +1,7 @@
 function getInnerSize(el) {
-  let computedStyle = window.getComputedStyle(el);
   return {
-    width: el.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight),
-    height: el.clientHeight - parseFloat(computedStyle.paddingTop) - parseFloat(computedStyle.paddingBottom)
+    width: el.clientWidth,
+    height: el.clientHeight
   };
 }
 

@@ -10,9 +10,9 @@ import {
 let noop = () => {};
 let userSelectNone = {
   WebkitUserSelect: 'none',
-  mozUserSelect: 'none',
+  MozUserSelect: 'none',
   msUserSelect: 'none',
-  oUserSelect: 'none',
+  OUserSelect: 'none',
   userSelect: 'none'
 };
 
@@ -93,27 +93,20 @@ class Draggable extends React.Component {
   }
   constructor(props) {
     super();
-    this.state = this._initState(props);
-    this._handleMouseDown = this._handleMouseDown.bind(this);
-    this._handleMouseMove = this._handleMouseMove.bind(this);
-    this._handleMouseUp = this._handleMouseUp.bind(this);
-  }
-  componentWillReceiveProps(props) {
-    if (props.start)
-      this.setState(this._initState(props));
-  }
-  componentWillUnmount() {
-    document.removeEventListener('mousemove', this._handleMouseMove);
-    document.removeEventListener('mouseup', this._handleMouseUp);
-  }
-  _initState(props) {
-    return {
+    this.state = {
       dragging: false,
       offsetX: 0,
       offsetY: 0,
       x: props.start.x,
       y: props.start.y
     };
+    this._handleMouseDown = this._handleMouseDown.bind(this);
+    this._handleMouseMove = this._handleMouseMove.bind(this);
+    this._handleMouseUp = this._handleMouseUp.bind(this);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this._handleMouseMove);
+    document.removeEventListener('mouseup', this._handleMouseUp);
   }
   _handleMouseDown(e) {
     if(this.props.dragger && !matchSelector(e.target, this.props.dragger))
