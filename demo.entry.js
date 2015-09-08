@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d5afac07c4a43372b0c8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "efa7c7fcd3b0f084df8e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7979,16 +7979,26 @@
 	    y: 300
 	  },
 	  axis: 'both',
-	  grid: {
-	    x: 50,
-	    y: 50
-	  },
-	  limit: {
-	    x: [0, 300],
-	    y: [0, 300]
-	  },
+	  // grid: {
+	  //   x: 50,
+	  //   y: 50
+	  // },
+	  // limit: {
+	  //   x: [0, 300],
+	  //   y: [0, 300]
+	  // },
+	  limit: 'parent',
 	  shadow: true,
-	  dragger: '.header'
+	  dragger: '.header',
+	  onDragStart: function onDragStart(e) {
+	    console.log('dragStart---', e.dragging, e.dragStartX, e.dragStartY, e.dragOffsetX, e.dragOffsetY, e.dragShowX, e.dragShowY);
+	  },
+	  onDragMove: function onDragMove(e) {
+	    console.log('dragMove---', e.dragging, e.dragStartX, e.dragStartY, e.dragOffsetX, e.dragOffsetY, e.dragShowX, e.dragShowY);
+	  },
+	  onDragEnd: function onDragEnd(e) {
+	    console.log('dragEnd---', e.dragging, e.dragStartX, e.dragStartY, e.dragOffsetX, e.dragOffsetY, e.dragShowX, e.dragShowY);
+	  }
 	};
 
 	_react2['default'].render(_react2['default'].createElement(
@@ -7997,16 +8007,16 @@
 	  _react2['default'].createElement(
 	    _srcIndex2['default'],
 	    config,
+	    _react2['default'].createElement('div', { className: 'header' }),
 	    _react2['default'].createElement(
 	      'div',
 	      { className: 'content' },
-	      _react2['default'].createElement('div', { className: 'header' }),
-	      _react2['default'].createElement('div', { className: 'content' })
+	      'asdlfjaskldjfklajsdl'
 	    )
 	  )
 	), document.getElementById('demo'));
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "demo.jsx" + ": " + err.message); } }); } } })(); }
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "demo.jsx" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
@@ -28808,12 +28818,12 @@
 
 	var _libComponent2 = _interopRequireDefault(_libComponent);
 
-	__webpack_require__(231);
+	__webpack_require__(235);
 
 	exports['default'] = _libComponent2['default'];
 	module.exports = exports['default'];
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
@@ -28840,12 +28850,48 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _getSize = __webpack_require__(227);
+	var _reactMixin = __webpack_require__(227);
+
+	var _reactMixin2 = _interopRequireDefault(_reactMixin);
+
+	var _reactAsEventMixin = __webpack_require__(233);
+
+	var _reactAsEventMixin2 = _interopRequireDefault(_reactAsEventMixin);
+
+	var _getSize = __webpack_require__(234);
+
+	var noop = function noop() {};
+	var userSelectNone = {
+	  WebkitUserSelect: 'none',
+	  mozUserSelect: 'none',
+	  msUserSelect: 'none',
+	  oUserSelect: 'none',
+	  userSelect: 'none'
+	};
 
 	function range(val, min, max) {
 	  val = val > max ? max : val;
 	  val = val < min ? min : val;
 	  return val;
+	}
+
+	function merge(dist) {
+	  for (var _len = arguments.length, src = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    src[_key - 1] = arguments[_key];
+	  }
+
+	  src.forEach(function (s) {
+	    for (var key in s) {
+	      dist[key] = s[key];
+	    }
+	  });
+	  return dist;
+	}
+
+	function matchSelector(el, selector) {
+	  return ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].reduce(function (rst, method) {
+	    return rst || typeof el[method] === 'function' && el[method].call(el, selector);
+	  }, false);
 	}
 
 	var Draggable = (function (_React$Component) {
@@ -28867,6 +28913,12 @@
 	      if (props.start) this.setState(this._initState(props));
 	    }
 	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      document.removeEventListener('mousemove', this._handleMouseMove);
+	      document.removeEventListener('mouseup', this._handleMouseUp);
+	    }
+	  }, {
 	    key: '_initState',
 	    value: function _initState(props) {
 	      return {
@@ -28878,16 +28930,10 @@
 	      };
 	    }
 	  }, {
-	    key: '_matchSelector',
-	    value: function _matchSelector(el, selector) {
-	      return ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].reduce(function (rst, method) {
-	        return rst || typeof el[method] === 'function' && el[method].call(el, selector);
-	      }, false);
-	    }
-	  }, {
 	    key: '_handleMouseDown',
 	    value: function _handleMouseDown(e) {
-	      if (this.props.dragger && !this._matchSelector(e.target, this.props.dragger)) return;
+	      if (this.props.dragger && !matchSelector(e.target, this.props.dragger)) return;
+	      var oldState = this.state;
 	      var state = {
 	        dragging: true,
 	        dragStartX: e.pageX,
@@ -28913,6 +28959,20 @@
 	      document.addEventListener('mousemove', this._handleMouseMove, false);
 	      document.addEventListener('mouseup', this._handleMouseUp, false);
 	      this.setState(state);
+	      this.fireAll('dragStart', this._createEventObj(e, merge({}, oldState, state)));
+	    }
+	  }, {
+	    key: '_createEventObj',
+	    value: function _createEventObj(e, state) {
+	      return merge(e, {
+	        dragging: state.dragging,
+	        dragStartX: state.dragStartX,
+	        dragStartY: state.dragStartY,
+	        dragOffsetX: state.offsetX,
+	        dragOffsetY: state.offsetY,
+	        dragShowX: state.x + state.offsetX,
+	        dragShowY: state.y + state.offsetY
+	      });
 	    }
 	  }, {
 	    key: '_handleMouseMove',
@@ -28924,49 +28984,63 @@
 	      var axisX = axis === 'both' || axis === 'x' || false;
 	      var axisY = axis === 'both' || axis === 'y' || false;
 	      var limit = this._limitOffset;
-	      this.setState({
+	      var oldState = this.state;
+	      var state = {
 	        offsetX: axisX ? range(Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x, limit.x[0], limit.x[1]) : 0,
 	        offsetY: axisY ? range(Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y, limit.y[0], limit.y[1]) : 0
-	      });
+	      };
+	      if (state.offsetX === oldState.offsetX && state.offsetY === oldState.offsetY) return;
+	      this.setState(state);
+	      this.fireAll('dragMove', this._createEventObj(e, merge({}, oldState, state)));
 	    }
 	  }, {
 	    key: '_handleMouseUp',
-	    value: function _handleMouseUp() {
+	    value: function _handleMouseUp(e) {
 	      document.removeEventListener('mousemove', this._handleMouseMove);
 	      document.removeEventListener('mouseup', this._handleMouseUp);
+	      var state = this.state;
 	      this.setState({
 	        dragging: false,
 	        offsetX: 0,
 	        offsetY: 0,
-	        x: this.state.offsetX + this.state.x,
-	        y: this.state.offsetY + this.state.y
+	        x: state.offsetX + state.x,
+	        y: state.offsetY + state.y
 	      });
 	      delete this._limitOffset;
+	      this.fireAll('dragEnd', this._createEventObj(e, merge({}, state, {
+	        dragging: false
+	      })));
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var contentStyle = merge({
+	        position: 'absolute',
+	        zIndex: this.props.zIndex,
+	        left: this.props.shadow ? this.state.x : this.state.x + this.state.offsetX,
+	        top: this.props.shadow ? this.state.y : this.state.y + this.state.offsetY
+	      }, this.props.closeSelectOnDrag && this.state.dragging ? userSelectNone : {});
+	      var shadowStyle = this.props.shadow && this.state.dragging && merge({
+	        position: 'absolute',
+	        zIndex: this.props.zIndex,
+	        opacity: 0.5,
+	        left: this.state.x + this.state.offsetX,
+	        top: this.state.y + this.state.offsetY
+	      }, this.props.closeSelectOnDrag ? userSelectNone : {});
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'react-as-dnd' },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: 'react-as-dnd-content', onMouseDown: !this.state.dragging && this._handleMouseDown, style: {
-	              position: 'absolute',
-	              left: this.props.shadow ? this.state.x : this.state.x + this.state.offsetX,
-	              top: this.props.shadow ? this.state.y : this.state.y + this.state.offsetY
-	            } },
+	          { className: 'react-as-dnd-content', onMouseDown: !this.state.dragging && this._handleMouseDown, style: contentStyle },
 	          this.props.children
 	        ),
 	        this.props.shadow && this.state.dragging && _react2['default'].createElement(
 	          'div',
-	          { className: 'react-as-dnd-shadow', style: {
-	              position: 'absolute',
-	              opacity: 0.5,
-	              left: this.state.x + this.state.offsetX,
-	              top: this.state.y + this.state.offsetY
-	            } },
-	          _react2['default'].cloneElement(_react2['default'].Children.only(this.props.children))
+	          { className: 'react-as-dnd-shadow', style: shadowStyle },
+	          _react2['default'].Children.map(this.props.children, function (child) {
+	            return _react2['default'].cloneElement(_react2['default'].Children.only(child));
+	          })
 	        )
 	      );
 	    }
@@ -28979,6 +29053,7 @@
 	    value: {
 	      axis: _react2['default'].PropTypes.oneOf(['both', 'x', 'y']),
 	      children: _react2['default'].PropTypes.node,
+	      closeSelectOnDrag: _react2['default'].PropTypes.bool,
 	      dragger: _react2['default'].PropTypes.string,
 	      grid: _react2['default'].PropTypes.shape({
 	        x: _react2['default'].PropTypes.number,
@@ -28988,11 +29063,16 @@
 	        x: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number),
 	        y: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)
 	      }), _react2['default'].PropTypes.oneOf(['parent', null])]),
+	      onDragEnd: _react2['default'].PropTypes.func,
+	      onDragMove: _react2['default'].PropTypes.func,
+	      onDragStart: _react2['default'].PropTypes.func,
+	      opacity: _react2['default'].PropTypes.number,
 	      shadow: _react2['default'].PropTypes.bool,
 	      start: _react2['default'].PropTypes.shape({
 	        x: _react2['default'].PropTypes.number,
 	        y: _react2['default'].PropTypes.number
-	      })
+	      }),
+	      zIndex: _react2['default'].PropTypes.number
 	    },
 	    enumerable: true
 	  }, {
@@ -29009,7 +29089,13 @@
 	      dragger: null,
 	      axis: 'both',
 	      limit: null,
-	      shadow: true
+	      shadow: true,
+	      zIndex: 9999,
+	      onDragStart: noop,
+	      onDragEnd: noop,
+	      onDragMove: noop,
+	      opacity: 0.5,
+	      closeSelectOnDrag: true
 	    },
 	    enumerable: true
 	  }]);
@@ -29017,10 +29103,12 @@
 	  return Draggable;
 	})(_react2['default'].Component);
 
+	(0, _reactMixin2['default'])(Draggable.prototype, _reactAsEventMixin2['default']);
+
 	exports['default'] = Draggable;
 	module.exports = exports['default'];
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Component.jsx" + ": " + err.message); } }); } } })(); }
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Component.jsx" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
@@ -29029,42 +29117,359 @@
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	var mixin = __webpack_require__(228);
+	var assign = __webpack_require__(232);
+
+	var mixinProto = mixin({
+	  // lifecycle stuff is as you'd expect
+	  componentDidMount: mixin.MANY,
+	  componentWillMount: mixin.MANY,
+	  componentWillReceiveProps: mixin.MANY,
+	  shouldComponentUpdate: mixin.ONCE,
+	  componentWillUpdate: mixin.MANY,
+	  componentDidUpdate: mixin.MANY,
+	  componentWillUnmount: mixin.MANY,
+	  getChildContext: mixin.MANY_MERGED
 	});
-	function getInnerSize(el) {
-	  var computedStyle = window.getComputedStyle(el);
-	  return {
-	    width: el.clientHeight - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight),
-	    height: el.clientWidth - parseFloat(computedStyle.paddingTop) - parseFloat(computedStyle.paddingBottom)
-	  };
+
+	function setDefaultProps(reactMixin) {
+	  var getDefaultProps = reactMixin.getDefaultProps;
+
+	  if (getDefaultProps) {
+	    reactMixin.defaultProps = getDefaultProps();
+
+	    delete reactMixin.getDefaultProps;
+	  }
 	}
 
-	function getOuterSize(el) {
-	  var computedStyle = window.getComputedStyle(el);
-	  return {
-	    width: el.clientHeight + parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderLeftWidth),
-	    height: el.clientWidth + parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth)
-	  };
+	function setInitialState(reactMixin) {
+	  var getInitialState = reactMixin.getInitialState;
+	  var componentWillMount = reactMixin.componentWillMount;
+
+	  function applyInitialState(instance) {
+	    var state = instance.state || {};
+	    assign(state, getInitialState.call(instance));
+	    instance.state = state;
+	  }
+
+	  if (getInitialState) {
+	    if (!componentWillMount) {
+	      reactMixin.componentWillMount = function () {
+	        applyInitialState(this);
+	      };
+	    } else {
+	      reactMixin.componentWillMount = function () {
+	        applyInitialState(this);
+	        componentWillMount.call(this);
+	      };
+	    }
+
+	    delete reactMixin.getInitialState;
+	  }
 	}
 
-	exports["default"] = {
-	  getInnerSize: getInnerSize,
-	  getOuterSize: getOuterSize
-	};
-	module.exports = exports["default"];
+	function mixinClass(reactClass, reactMixin) {
+	  setDefaultProps(reactMixin);
+	  setInitialState(reactMixin);
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(228), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "getSize.jsx" + ": " + err.message); } }); } } })(); }
+	  var prototypeMethods = {};
+	  var staticProps = {};
+
+	  Object.keys(reactMixin).forEach(function (key) {
+	    if (key === 'mixins') {
+	      return; // Handled below to ensure proper order regardless of property iteration order
+	    }
+	    if (key === 'statics') {
+	      return; // gets special handling
+	    } else if (typeof reactMixin[key] === 'function') {
+	      prototypeMethods[key] = reactMixin[key];
+	    } else {
+	      staticProps[key] = reactMixin[key];
+	    }
+	  });
+
+	  mixinProto(reactClass.prototype, prototypeMethods);
+
+	  var mergePropTypes = function mergePropTypes(left, right, key) {
+	    if (!left) return right;
+	    if (!right) return left;
+
+	    var result = {};
+	    Object.keys(left).forEach(function (leftKey) {
+	      if (!right[leftKey]) {
+	        result[leftKey] = left[leftKey];
+	      }
+	    });
+
+	    Object.keys(right).forEach(function (rightKey) {
+	      if (left[rightKey]) {
+	        result[rightKey] = function checkBothContextTypes() {
+	          return right[rightKey].apply(this, arguments) && left[rightKey].apply(this, arguments);
+	        };
+	      } else {
+	        result[rightKey] = right[rightKey];
+	      }
+	    });
+
+	    return result;
+	  };
+
+	  mixin({
+	    childContextTypes: mergePropTypes,
+	    contextTypes: mergePropTypes,
+	    propTypes: mixin.MANY_MERGED_LOOSE,
+	    defaultProps: mixin.MANY_MERGED_LOOSE
+	  })(reactClass, staticProps);
+
+	  // statics is a special case because it merges directly onto the class
+	  if (reactMixin.statics) {
+	    Object.getOwnPropertyNames(reactMixin.statics).forEach(function (key) {
+	      var left = reactClass[key];
+	      var right = reactMixin.statics[key];
+
+	      if (left !== undefined && right !== undefined) {
+	        throw new TypeError('Cannot mixin statics because statics.' + key + ' and Component.' + key + ' are defined.');
+	      }
+
+	      reactClass[key] = left !== undefined ? left : right;
+	    });
+	  }
+
+	  // If more mixins are defined, they need to run. This emulate's react's behavior.
+	  // See behavior in code at:
+	  // https://github.com/facebook/react/blob/41aa3496aa632634f650edbe10d617799922d265/src/isomorphic/classic/class/ReactClass.js#L468
+	  // Note the .reverse(). In React, a fresh constructor is created, then all mixins are mixed in recursively,
+	  // then the actual spec is mixed in last.
+	  //
+	  // With ES6 classes, the properties are already there, so smart-mixin mixes functions (a, b) -> b()a(), which is
+	  // the opposite of how React does it. If we reverse this array, we basically do the whole logic in reverse,
+	  // which makes the result the same. See the test for more.
+	  // See also:
+	  // https://github.com/facebook/react/blob/41aa3496aa632634f650edbe10d617799922d265/src/isomorphic/classic/class/ReactClass.js#L853
+	  if (reactMixin.mixins) {
+	    reactMixin.mixins.reverse().forEach(mixinClass.bind(null, reactClass));
+	  }
+
+	  return reactClass;
+	}
+
+	module.exports = (function () {
+	  var reactMixin = mixinProto;
+
+	  reactMixin.onClass = function (reactClass, mixin) {
+	    return mixinClass(reactClass, mixin);
+	  };
+
+	  reactMixin.decorate = function (mixin) {
+	    return function (reactClass) {
+	      return reactMixin.onClass(reactClass, mixin);
+	    };
+	  };
+
+	  return reactMixin;
+	})();
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
 /* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
+
+	var objToStr = function objToStr(x) {
+	    return Object.prototype.toString.call(x);
+	};
+
+	var thrower = function thrower(error) {
+	    throw error;
+	};
+
+	var mixins = module.exports = function makeMixinFunction(rules, _opts) {
+	    var opts = _opts || {};
+	    if (!opts.unknownFunction) {
+	        opts.unknownFunction = mixins.ONCE;
+	    }
+
+	    if (!opts.nonFunctionProperty) {
+	        opts.nonFunctionProperty = function (left, right, key) {
+	            if (left !== undefined && right !== undefined) {
+	                var getTypeName = function getTypeName(obj) {
+	                    if (obj && obj.constructor && obj.constructor.name) {
+	                        return obj.constructor.name;
+	                    } else {
+	                        return objToStr(obj).slice(8, -1);
+	                    }
+	                };
+	                throw new TypeError('Cannot mixin key ' + key + ' because it is provided by multiple sources, ' + 'and the types are ' + getTypeName(left) + ' and ' + getTypeName(right));
+	            }
+	            return left === undefined ? right : left;
+	        };
+	    }
+
+	    function setNonEnumerable(target, key, value) {
+	        if (key in target) {
+	            target[key] = value;
+	        } else {
+	            Object.defineProperty(target, key, {
+	                value: value,
+	                writable: true,
+	                configurable: true
+	            });
+	        }
+	    }
+
+	    return function applyMixin(source, mixin) {
+	        Object.keys(mixin).forEach(function (key) {
+	            var left = source[key],
+	                right = mixin[key],
+	                rule = rules[key];
+
+	            // this is just a weird case where the key was defined, but there's no value
+	            // behave like the key wasn't defined
+	            if (left === undefined && right === undefined) return;
+
+	            var wrapIfFunction = function wrapIfFunction(thing) {
+	                return typeof thing !== 'function' ? thing : function () {
+	                    return thing.call(this, arguments);
+	                };
+	            };
+
+	            // do we have a rule for this key?
+	            if (rule) {
+	                // may throw here
+	                var fn = rule(left, right, key);
+	                setNonEnumerable(source, key, wrapIfFunction(fn));
+	                return;
+	            }
+
+	            var leftIsFn = typeof left === 'function';
+	            var rightIsFn = typeof right === 'function';
+
+	            // check to see if they're some combination of functions or undefined
+	            // we already know there's no rule, so use the unknown function behavior
+	            if (leftIsFn && right === undefined || rightIsFn && left === undefined || leftIsFn && rightIsFn) {
+	                // may throw, the default is ONCE so if both are functions
+	                // the default is to throw
+	                setNonEnumerable(source, key, wrapIfFunction(opts.unknownFunction(left, right, key)));
+	                return;
+	            }
+
+	            // we have no rule for them, one may be a function but one or both aren't
+	            // our default is MANY_MERGED_LOOSE which will merge objects, concat arrays
+	            // and throw if there's a type mismatch or both are primitives (how do you merge 3, and "foo"?)
+	            source[key] = opts.nonFunctionProperty(left, right, key);
+	        });
+	    };
+	};
+
+	mixins._mergeObjects = function (obj1, obj2) {
+	    var assertObject = function assertObject(obj, obj2) {
+	        var type = objToStr(obj);
+	        if (type !== '[object Object]') {
+	            var displayType = obj.constructor ? obj.constructor.name : 'Unknown';
+	            var displayType2 = obj2.constructor ? obj2.constructor.name : 'Unknown';
+	            thrower('cannot merge returned value of type ' + displayType + ' with an ' + displayType2);
+	        }
+	    };
+
+	    if (Array.isArray(obj1) && Array.isArray(obj2)) {
+	        return obj1.concat(obj2);
+	    }
+
+	    assertObject(obj1, obj2);
+	    assertObject(obj2, obj1);
+
+	    var result = {};
+	    Object.keys(obj1).forEach(function (k) {
+	        if (Object.prototype.hasOwnProperty.call(obj2, k)) {
+	            thrower('cannot merge returns because both have the ' + JSON.stringify(k) + ' key');
+	        }
+	        result[k] = obj1[k];
+	    });
+
+	    Object.keys(obj2).forEach(function (k) {
+	        // we can skip the conflict check because all conflicts would already be found
+	        result[k] = obj2[k];
+	    });
+	    return result;
+	};
+
+	// define our built-in mixin types
+	mixins.ONCE = function (left, right, key) {
+	    if (left && right) {
+	        throw new TypeError('Cannot mixin ' + key + ' because it has a unique constraint.');
+	    }
+
+	    var fn = left || right;
+
+	    return function (args) {
+	        return fn.apply(this, args);
+	    };
+	};
+
+	mixins.MANY = function (left, right, key) {
+	    return function (args) {
+	        if (right) right.apply(this, args);
+	        return left ? left.apply(this, args) : undefined;
+	    };
+	};
+
+	mixins.MANY_MERGED_LOOSE = function (left, right, key) {
+	    if (left && right) {
+	        return mixins._mergeObjects(left, right);
+	    }
+
+	    return left || right;
+	};
+
+	mixins.MANY_MERGED = function (left, right, key) {
+	    return function (args) {
+	        var res1 = right && right.apply(this, args);
+	        var res2 = left && left.apply(this, args);
+	        if (res1 && res2) {
+	            return mixins._mergeObjects(res1, res2);
+	        }
+	        return res2 || res1;
+	    };
+	};
+
+	mixins.REDUCE_LEFT = function (_left, _right, key) {
+	    var left = _left || function (x) {
+	        return x;
+	    };
+	    var right = _right || function (x) {
+	        return x;
+	    };
+	    return function (args) {
+	        return right.call(this, left.apply(this, args));
+	    };
+	};
+
+	mixins.REDUCE_RIGHT = function (_left, _right, key) {
+	    var left = _left || function (x) {
+	        return x;
+	    };
+	    var right = _right || function (x) {
+	        return x;
+	    };
+	    return function (args) {
+	        return left.call(this, right.apply(this, args));
+	    };
+	};
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var isReactClassish = __webpack_require__(229),
-	    isReactElementish = __webpack_require__(230);
+	var isReactClassish = __webpack_require__(230),
+	    isReactElementish = __webpack_require__(231);
 
 	function makeExportsHot(m, React) {
 	  if (isReactElementish(m.exports, React)) {
@@ -29111,7 +29516,7 @@
 
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function hasRender(Class) {
@@ -29161,10 +29566,10 @@
 	module.exports = isReactClassish;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isReactClassish = __webpack_require__(229);
+	var isReactClassish = __webpack_require__(230);
 
 	function isReactElementish(obj, React) {
 	  if (!obj) {
@@ -29178,23 +29583,166 @@
 	module.exports = isReactElementish;
 
 /***/ },
-/* 231 */
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
+
+	'use strict';
+
+	function ToObject(val) {
+		if (val == null) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var keys;
+		var to = ToObject(target);
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = arguments[s];
+			keys = Object.keys(Object(from));
+
+			for (var i = 0; i < keys.length; i++) {
+				to[keys[i]] = from[keys[i]];
+			}
+		}
+
+		return to;
+	};
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
+
+	var slice = Array.prototype.slice,
+	    noop = function noop() {};
+
+	function word(str) {
+	  return str && str[0].toUpperCase() + str.slice(1);
+	}
+
+	function onName(name) {
+	  return 'on' + name.split(/[^a-zA-Z0-9]/).reduce(function (rst, w) {
+	    rst += word(w) || '';
+	    return rst;
+	  }, '');
+	}
+
+	module.exports = {
+	  on: function on(name, cb) {
+	    this._events = this._events || {};
+	    (this._events[name] = this._events[name] || []).push(cb || noop);
+	    return this;
+	  },
+	  off: function off(name, cb) {
+	    if (!this._events) return this;
+	    var queue, index;
+	    if (!(queue = this._events[name])) return this;
+	    if (typeof cb === 'function') (index = queue.indexOf(cb)) !== -1 && (queue[index] = noop);else this._events[name] = queue.map(function () {
+	      return noop;
+	    });
+	    return this;
+	  },
+	  once: function once(name, cb) {
+	    var _this = this,
+	        _arguments = arguments;
+
+	    var tmp = function tmp() {
+	      cb.apply(_this, slice.call(_arguments));
+	      _this.off(name, tmp);
+	    };
+	    this.on(name, tmp);
+	    return this;
+	  },
+	  fire: function fire(name) {
+	    var _this2 = this;
+
+	    if (!this._events) return this;
+	    var queue;
+	    if (!(queue = this._events[name])) return this;
+	    var data = slice.call(arguments, 1);
+	    queue.forEach(function (cb) {
+	      return cb.apply(_this2, data);
+	    });
+	    queue = this._events[name];
+	    (queue = queue.filter(function (cb) {
+	      return cb !== noop;
+	    })).length === 0 ? delete this._events[name] : this._events[name] = queue;
+	    return this;
+	  },
+	  fireAll: function fireAll() {
+	    var args = slice.call(arguments);
+	    var name = onName(args[0]);
+	    this.props[name] && this.props[name].apply(this, args.slice(1));
+	    return this.fire.apply(this, args);
+	  }
+	};
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } })(); }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	function getInnerSize(el) {
+	  var computedStyle = window.getComputedStyle(el);
+	  return {
+	    width: el.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight),
+	    height: el.clientHeight - parseFloat(computedStyle.paddingTop) - parseFloat(computedStyle.paddingBottom)
+	  };
+	}
+
+	function getOuterSize(el) {
+	  var computedStyle = window.getComputedStyle(el);
+	  return {
+	    width: el.clientWidth + parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderLeftWidth),
+	    height: el.clientHeight + parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth)
+	  };
+	}
+
+	exports["default"] = {
+	  getInnerSize: getInnerSize,
+	  getOuterSize: getOuterSize
+	};
+	module.exports = exports["default"];
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "getSize.jsx" + ": " + err.message); } }); } } })(); }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
+
+/***/ },
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(232);
+	var content = __webpack_require__(236);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(234)(content, {});
+	var update = __webpack_require__(238)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(232, function() {
-				var newContent = __webpack_require__(232);
+			module.hot.accept(236, function() {
+				var newContent = __webpack_require__(236);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -29204,14 +29752,14 @@
 	}
 
 /***/ },
-/* 232 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(233)();
+	exports = module.exports = __webpack_require__(237)();
 	exports.push([module.id, "", ""]);
 
 /***/ },
-/* 233 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29267,7 +29815,7 @@
 
 
 /***/ },
-/* 234 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
