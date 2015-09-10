@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2a1ceff0e0a44eeb447f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "221844501fd24d2c8388"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7963,15 +7963,7 @@
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(59), ReactMount = __webpack_require__(61), React = __webpack_require__(115); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(115);
 
@@ -7981,187 +7973,107 @@
 
 	var _srcIndex2 = _interopRequireDefault(_srcIndex);
 
-	__webpack_require__(239);
-
-	var config = {
-	  start: {
-	    x: 300,
-	    y: 300
-	  },
-	  axis: 'both',
-	  // grid: {
-	  //   x: 50,
-	  //   y: 50
-	  // },
-	  // limit: {
-	  //   x: [0, 300],
-	  //   y: [0, 300]
-	  // },
-	  limit: 'parent',
-	  shadow: true,
-	  dragger: '.header',
-	  onDragStart: function onDragStart(e) {
-	    console.log('dragStart---', e.dragging, e.dragStartX, e.dragStartY, e.dragOffsetX, e.dragOffsetY, e.dragShowX, e.dragShowY);
-	  },
-	  onDragMove: function onDragMove(e) {
-	    console.log('dragMove---', e.dragging, e.dragStartX, e.dragStartY, e.dragOffsetX, e.dragOffsetY, e.dragShowX, e.dragShowY);
-	  },
-	  onDragEnd: function onDragEnd(e) {
-	    console.log('dragEnd---', e.dragging, e.dragStartX, e.dragStartY, e.dragOffsetX, e.dragOffsetY, e.dragShowX, e.dragShowY);
-	  }
-	};
-
-	// React.render(
-	//   <div className="container">
-	//     <Draggable {...config}>
-	//       <div className="header"></div>
-	//       <div className="content">
-	//         asdlfjaskldjfklajsdl
-	//       </div>
-	//     </Draggable>
-	//   </div>,
-	//   document.getElementById('demo')
-	// );
-
-	var NumberInput = (function (_React$Component) {
-	  function NumberInput(props) {
-	    _classCallCheck(this, NumberInput);
-
-	    _get(Object.getPrototypeOf(NumberInput.prototype), 'constructor', this).call(this);
-	    this.state = {
-	      value: props.value,
-	      dragging: false
-	    };
-	    this._getPixPerStep = this._getPixPerStep.bind(this);
-	    this._value2offset = this._value2offset.bind(this);
-	    this._offset2value = this._offset2value.bind(this);
-	    this._handleDragMove = this._handleDragMove.bind(this);
-	    this._handleDragStart = this._handleDragStart.bind(this);
-	    this._handleDragEnd = this._handleDragEnd.bind(this);
-	  }
-
-	  _inherits(NumberInput, _React$Component);
-
-	  _createClass(NumberInput, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(props) {
-	      'value' in props && (this.state.value = props.value);
-	    }
-	  }, {
-	    key: '_getPixPerStep',
-	    value: function _getPixPerStep() {
-	      var props = this.props;
-	      var totalSteps = (props.max - props.min) / props.step;
-	      var pixPerStep = props.width / totalSteps;
-	      return pixPerStep;
-	    }
-	  }, {
-	    key: '_value2offset',
-	    value: function _value2offset(value) {
-	      var props = this.props;
-	      var totalSteps = (props.max - props.min) / props.step;
-	      var curStep = Math.round((value - props.min) / (props.max - props.min) * totalSteps);
-	      var pixPerStep = this._getPixPerStep();
-	      return curStep * pixPerStep;
-	    }
-	  }, {
-	    key: '_offset2value',
-	    value: function _offset2value(len) {
-	      var pixPerStep = this._getPixPerStep();
-	      var steps = Math.round(len / pixPerStep);
-	      return steps * this.props.step;
-	    }
-	  }, {
-	    key: '_handleDragMove',
-	    value: function _handleDragMove(e) {
-	      var value = this._offset2value(e.dragShowX);
-	      this.setState({
-	        value: value
-	      });
-	      this.props.onChange(value);
-	    }
-	  }, {
-	    key: '_handleDragStart',
-	    value: function _handleDragStart() {
-	      this.setState({
-	        dragging: true
-	      });
-	    }
-	  }, {
-	    key: '_handleDragEnd',
-	    value: function _handleDragEnd() {
-	      this.setState({
-	        dragging: false
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var config = {
-	        start: {
-	          x: this._value2offset(this.state.value),
-	          y: 5
-	        },
-	        grid: {
-	          x: this._getPixPerStep(),
-	          y: 0
-	        },
-	        limit: 'parent',
-	        axis: 'x',
-	        shadow: false,
-	        onDragMove: this._handleDragMove,
-	        onDragStart: this._handleDragStart,
-	        onDragEnd: this._handleDragEnd
-	      };
-	      return _react2['default'].createElement(
-	        'div',
-	        { className: 'react-as-number-input', style: { width: this.props.width } },
-	        _react2['default'].createElement('div', { className: 'react-as-number-input-line' }),
-	        _react2['default'].createElement(
-	          _srcIndex2['default'],
-	          config,
-	          _react2['default'].createElement('span', { className: 'react-as-number-input-btn' })
-	        )
-	      );
-	    }
-	  }], [{
-	    key: 'displayName',
-	    value: 'NumberInput',
-	    enumerable: true
-	  }, {
-	    key: 'propTypes',
-	    value: {
-	      max: _react2['default'].PropTypes.number,
-	      min: _react2['default'].PropTypes.number,
-	      onChange: _react2['default'].PropTypes.func,
-	      step: _react2['default'].PropTypes.number,
-	      value: _react2['default'].PropTypes.number,
-	      width: _react2['default'].PropTypes.number
-	    },
-	    enumerable: true
-	  }, {
-	    key: 'defaultProps',
-	    value: {
-	      min: 0,
-	      max: 100,
-	      value: 0,
-	      step: 1,
-	      width: 300,
-	      onChange: function onChange() {}
-	    },
-	    enumerable: true
-	  }]);
-
-	  return NumberInput;
-	})(_react2['default'].Component);
+	__webpack_require__(236);
 
 	_react2['default'].render(_react2['default'].createElement(
 	  'div',
-	  null,
-	  _react2['default'].createElement(NumberInput, { width: 300, min: 0, max: 100, step: 1, onChange: function (v) {
-	      return console.log(v);
-	    } })
-	), document.getElementById('number'));
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    null,
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('normal'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { start: { x: 100, y: 100 } },
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('startPoint'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { axis: 'x' },
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('axisX'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { axis: 'y' },
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('axisY'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { grid: {
+	        x: 100,
+	        y: 100
+	      } },
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('grid'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { limit: 'parent' },
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('limit-parent'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { limit: {
+	        x: [0, 100],
+	        y: [0, 100]
+	      } },
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('limit-area'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { shadow: false },
+	    _react2['default'].createElement('div', { className: 'square' })
+	  )
+	), document.getElementById('no-shadow'));
+
+	_react2['default'].render(_react2['default'].createElement(
+	  'div',
+	  { className: 'ctn' },
+	  _react2['default'].createElement(
+	    _srcIndex2['default'],
+	    { dragger: '.dragger' },
+	    _react2['default'].createElement(
+	      'div',
+	      { className: 'square' },
+	      _react2['default'].createElement('div', { className: 'dragger' })
+	    )
+	  )
+	), document.getElementById('dragger'));
 
 	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(115))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "demo.jsx" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
@@ -28965,8 +28877,6 @@
 
 	var _libComponent2 = _interopRequireDefault(_libComponent);
 
-	__webpack_require__(235);
-
 	exports['default'] = _libComponent2['default'];
 	module.exports = exports['default'];
 
@@ -29005,41 +28915,9 @@
 
 	var _reactAsEventMixin2 = _interopRequireDefault(_reactAsEventMixin);
 
-	var _getSize = __webpack_require__(234);
+	var _domHelper = __webpack_require__(234);
 
-	var noop = function noop() {};
-	var userSelectNone = {
-	  WebkitUserSelect: 'none',
-	  MozUserSelect: 'none',
-	  msUserSelect: 'none',
-	  OUserSelect: 'none',
-	  userSelect: 'none'
-	};
-
-	function range(val, min, max) {
-	  val = val > max ? max : val;
-	  val = val < min ? min : val;
-	  return val;
-	}
-
-	function merge(dist) {
-	  for (var _len = arguments.length, src = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	    src[_key - 1] = arguments[_key];
-	  }
-
-	  src.forEach(function (s) {
-	    for (var key in s) {
-	      dist[key] = s[key];
-	    }
-	  });
-	  return dist;
-	}
-
-	function matchSelector(el, selector) {
-	  return ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].reduce(function (rst, method) {
-	    return rst || typeof el[method] === 'function' && el[method].call(el, selector);
-	  }, false);
-	}
+	var _util = __webpack_require__(235);
 
 	var Draggable = (function (_React$Component) {
 	  function Draggable(props) {
@@ -29069,7 +28947,7 @@
 	  }, {
 	    key: '_handleMouseDown',
 	    value: function _handleMouseDown(e) {
-	      if (this.props.dragger && !matchSelector(e.target, this.props.dragger)) return;
+	      if (this.props.dragger && !(0, _domHelper.matchSelector)(e.target, this.props.dragger)) return;
 	      var oldState = this.state;
 	      var state = {
 	        dragging: true,
@@ -29078,13 +28956,13 @@
 	        offsetX: 0,
 	        offsetY: 0
 	      };
-	      var elSize = (0, _getSize.getOuterSize)(_react2['default'].findDOMNode(this).querySelector('.react-as-dnd-content'));
+	      var elSize = (0, _domHelper.getOuterSize)(_react2['default'].findDOMNode(this).querySelector('.react-as-dnd-content'));
 	      var limit = this.props.limit;
 	      if (!limit) this._limitOffset = {
 	        x: [-Infinity, Infinity],
 	        y: [-Infinity, Infinity]
 	      };else if (limit === 'parent') {
-	        var parentSize = (0, _getSize.getInnerSize)(_react2['default'].findDOMNode(this).offsetParent);
+	        var parentSize = (0, _domHelper.getInnerSize)(_react2['default'].findDOMNode(this).offsetParent);
 	        this._limitOffset = {
 	          x: [-this.state.x, parentSize.width - this.state.x - elSize.width],
 	          y: [-this.state.y, parentSize.height - this.state.y - elSize.height]
@@ -29096,12 +28974,12 @@
 	      document.addEventListener('mousemove', this._handleMouseMove, false);
 	      document.addEventListener('mouseup', this._handleMouseUp, false);
 	      this.setState(state);
-	      this.fireAll('dragStart', this._createEventObj(e, merge({}, oldState, state)));
+	      this.fireAll('dragStart', this._createEventObj(e, (0, _util.merge)({}, oldState, state)));
 	    }
 	  }, {
 	    key: '_createEventObj',
 	    value: function _createEventObj(e, state) {
-	      return merge(e, {
+	      return (0, _util.merge)(e, {
 	        dragging: state.dragging,
 	        dragStartX: state.dragStartX,
 	        dragStartY: state.dragStartY,
@@ -29123,12 +29001,12 @@
 	      var limit = this._limitOffset;
 	      var oldState = this.state;
 	      var state = {
-	        offsetX: axisX ? range(Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x, limit.x[0], limit.x[1]) : 0,
-	        offsetY: axisY ? range(Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y, limit.y[0], limit.y[1]) : 0
+	        offsetX: axisX ? (0, _util.range)(Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x, limit.x[0], limit.x[1]) : 0,
+	        offsetY: axisY ? (0, _util.range)(Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y, limit.y[0], limit.y[1]) : 0
 	      };
 	      if (state.offsetX === oldState.offsetX && state.offsetY === oldState.offsetY) return;
 	      this.setState(state);
-	      this.fireAll('dragMove', this._createEventObj(e, merge({}, oldState, state)));
+	      this.fireAll('dragMove', this._createEventObj(e, (0, _util.merge)({}, oldState, state)));
 	    }
 	  }, {
 	    key: '_handleMouseUp',
@@ -29144,26 +29022,26 @@
 	        y: state.offsetY + state.y
 	      });
 	      delete this._limitOffset;
-	      this.fireAll('dragEnd', this._createEventObj(e, merge({}, state, {
+	      this.fireAll('dragEnd', this._createEventObj(e, (0, _util.merge)({}, state, {
 	        dragging: false
 	      })));
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var contentStyle = merge({
+	      var contentStyle = (0, _util.merge)({
 	        position: 'absolute',
 	        zIndex: this.props.zIndex,
 	        left: this.props.shadow ? this.state.x : this.state.x + this.state.offsetX,
 	        top: this.props.shadow ? this.state.y : this.state.y + this.state.offsetY
-	      }, this.props.closeSelectOnDrag && this.state.dragging ? userSelectNone : {});
-	      var shadowStyle = this.props.shadow && this.state.dragging && merge({
+	      }, this.props.closeSelectOnDrag && this.state.dragging ? _domHelper.userSelectNone : {});
+	      var shadowStyle = this.props.shadow && this.state.dragging && (0, _util.merge)({
 	        position: 'absolute',
 	        zIndex: this.props.zIndex,
 	        opacity: 0.5,
 	        left: this.state.x + this.state.offsetX,
 	        top: this.state.y + this.state.offsetY
-	      }, this.props.closeSelectOnDrag ? userSelectNone : {});
+	      }, this.props.closeSelectOnDrag ? _domHelper.userSelectNone : {});
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'react-as-dnd' },
@@ -29228,9 +29106,9 @@
 	      limit: null,
 	      shadow: true,
 	      zIndex: 9999,
-	      onDragStart: noop,
-	      onDragEnd: noop,
-	      onDragMove: noop,
+	      onDragStart: _util.noop,
+	      onDragEnd: _util.noop,
+	      onDragMove: _util.noop,
 	      opacity: 0.5,
 	      closeSelectOnDrag: true
 	    },
@@ -29834,7 +29712,7 @@
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(59), ReactMount = __webpack_require__(61), React = __webpack_require__(115); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	function getInnerSize(el) {
@@ -29852,33 +29730,90 @@
 	  };
 	}
 
-	exports["default"] = {
-	  getInnerSize: getInnerSize,
-	  getOuterSize: getOuterSize
-	};
-	module.exports = exports["default"];
+	function matchSelector(el, selector) {
+	  return ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].reduce(function (rst, method) {
+	    return rst || typeof el[method] === 'function' && el[method].call(el, selector);
+	  }, false);
+	}
 
-	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(115))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "getSize.jsx" + ": " + err.message); } }); } } })(); }
+	var userSelectNone = {
+	  WebkitUserSelect: 'none',
+	  MozUserSelect: 'none',
+	  msUserSelect: 'none',
+	  OUserSelect: 'none',
+	  userSelect: 'none'
+	};
+
+	exports['default'] = {
+	  getInnerSize: getInnerSize,
+	  getOuterSize: getOuterSize,
+	  matchSelector: matchSelector,
+	  userSelectNone: userSelectNone
+	};
+	module.exports = exports['default'];
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(115))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "domHelper.jsx" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
 
 /***/ },
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(59), ReactMount = __webpack_require__(61), React = __webpack_require__(115); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var noop = function noop() {};
+
+	function range(val, min, max) {
+	  val = val > max ? max : val;
+	  val = val < min ? min : val;
+	  return val;
+	}
+
+	function merge(dist) {
+	  for (var _len = arguments.length, src = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    src[_key - 1] = arguments[_key];
+	  }
+
+	  src.forEach(function (s) {
+	    for (var key in s) {
+	      dist[key] = s[key];
+	    }
+	  });
+	  return dist;
+	}
+
+	exports["default"] = {
+	  noop: noop,
+	  range: range,
+	  merge: merge
+	};
+	module.exports = exports["default"];
+
+	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(115))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "util.jsx" + ": " + err.message); } }); } } })(); }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(236);
+	var content = __webpack_require__(237);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(238)(content, {});
+	var update = __webpack_require__(239)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(236, function() {
-				var newContent = __webpack_require__(236);
+			module.hot.accept(237, function() {
+				var newContent = __webpack_require__(237);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -29888,14 +29823,14 @@
 	}
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(237)();
-	exports.push([module.id, "", ""]);
+	exports = module.exports = __webpack_require__(238)();
+	exports.push([module.id, "body {\n  padding: 20px;\n}\n.ctn {\n  position: relative;\n  width: 400px;\n  height: 200px;\n  background-color: #eee;\n}\n.container {\n  position: relative;\n  width: 800px;\n  height: 800px;\n  background-color: #eee;\n}\n.square {\n  width: 100px;\n  height: 100px;\n  background-color: #16a085;\n}\n#dragger .square {\n  background-color: #2F4F4F;\n}\n#dragger .dragger {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 20px;\n  height: 20px;\n  background-color: #16a085;\n}\n", ""]);
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29951,7 +29886,7 @@
 
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30174,39 +30109,6 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(240);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(238)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(true) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept(240, function() {
-				var newContent = __webpack_require__(240);
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(237)();
-	exports.push([module.id, "body {\n  padding: 20px;\n}\n.container {\n  position: relative;\n  width: 800px;\n  height: 800px;\n  background-color: #eee;\n}\n.header {\n  height: 100px;\n  background: green;\n}\n.content {\n  height: 200px;\n  background-color: aliceblue;\n}\n.react-as-number-input {\n  position: relative;\n  display: inline-block;\n  height: 30px;\n  padding: 0 10px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -o-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n}\n.react-as-number-input .react-as-number-input-line {\n  background-color: #666;\n  position: absolute;\n  height: 4px;\n  border-radius: 2px;\n  left: 10px;\n  right: 10px;\n  top: 50%;\n  margin-top: -2px;\n}\n.react-as-number-input .react-as-number-input-btn {\n  display: block;\n  background-color: #16a085;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  -webkit-transition: all 0.2s ease-out;\n          transition: all 0.2s ease-out;\n}\n", ""]);
 
 /***/ }
 /******/ ]);

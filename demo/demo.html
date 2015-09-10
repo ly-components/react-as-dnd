@@ -5,8 +5,143 @@
 	<title>React Component Demo</title>
 </head>
 <body>
-	<div id="demo"></div>
-	<div id="number"></div>
+	<h1>react-as-dnd</h1>
+	<section>
+		<h2>一般拖拽</h2>
+		<div id="normal"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable>
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('normal')
+);
+		</xmp>
+	</section>
+	<section>
+		<h2>起始位置</h2>
+		<div id="startPoint"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable start={{x: 100,y: 100}}>
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('startPoint')
+);
+		</xmp>
+	</section>
+	<section>
+		<h2>X轴拖拽</h2>
+		<div id="axisX"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable axis="x">
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('axisX')
+);
+		</xmp>
+	</section>
+	<section>
+		<h2>Y轴拖拽</h2>
+		<div id="axisY"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable axis="y">
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('axisY')
+);
+		</xmp>
+	</section>
+	<section>
+		<h2>网格拖拽</h2>
+		<div id="grid"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable grid={{
+        x: 100,
+        y: 100
+      }}>
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('limit-parent')
+);
+		</xmp>
+	</section>
+
+	<section>
+		<h2>限制父容器</h2>
+		<div id="limit-parent"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable limit="parent">
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('limit-parent')
+);
+		</xmp>
+	</section>
+	<section>
+		<h2>限制最大位移</h2>
+		<div id="limit-area"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable limit={{
+      x: [0, 100],
+      y: [0, 100]
+    }}>
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('limit-area')
+);
+		</xmp>
+	</section>
+	<section>
+		<h2>无需拖拽影子元素</h2>
+		<div id="no-shadow"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable shadow={false}>
+      <div className="square"></div>
+    </Draggable>
+  </div>,
+  document.getElementById('no-shadow')
+);
+		</xmp>
+	</section>
+	<section>
+		<h2>指定可拖拽区域</h2>
+		<div id="dragger"></div>
+		<xmp>
+React.render(
+  <div className="ctn">
+    <Draggable dragger=".dragger">
+      <div className="square">
+        <div className="dragger"></div>
+      </div>
+    </Draggable>
+  </div>,
+  document.getElementById('dragger')
+);
+		</xmp>
+	</section>
+
 	<script src="../demo.entry.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 {
-  "name": "react-webpack-boilerplate",
-  "version": "0.0.2",
-  "description": "A react webpack boilerplate",
+  "name": "react-as-dnd",
+  "version": "0.0.1",
+  "description": "一个React的拖拽组件",
   "main": "src/index.js",
   "scripts": {
     "start": "node server.js",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LingyuCoder/react-webpack-boilerplate.git"
+    "url": "git+https://github.com/LingyuCoder/react-as-dnd.git"
   },
   "keywords": [
     "react",
@@ -38,9 +38,9 @@
     "webpack"
   ],
   "bugs": {
-    "url": "https://github.com/LingyuCoder/react-webpack-boilerplate/issues"
+    "url": "https://github.com/LingyuCoder/react-as-dnd/issues"
   },
-  "homepage": "https://github.com/LingyuCoder/react-webpack-boilerplate#readme",
+  "homepage": "https://github.com/LingyuCoder/react-as-dnd#readme",
   "dependencies": {
     "react-as-event-mixin": "~0.1.1",
     "react-mixin": "~1.7.0"

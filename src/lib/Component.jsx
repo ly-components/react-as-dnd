@@ -4,41 +4,16 @@ import EventMixin from 'react-as-event-mixin';
 
 import {
   getInnerSize,
-  getOuterSize
-} from './getSize';
+  getOuterSize,
+  matchSelector,
+  userSelectNone
+} from './domHelper';
 
-let noop = () => {};
-let userSelectNone = {
-  WebkitUserSelect: 'none',
-  MozUserSelect: 'none',
-  msUserSelect: 'none',
-  OUserSelect: 'none',
-  userSelect: 'none'
-};
-
-function range(val, min, max) {
-  val = val > max ? max : val;
-  val = val < min ? min : val;
-  return val;
-}
-
-function merge(dist, ...src) {
-  src.forEach(s => {
-    for(let key in s)
-      dist[key] = s[key];
-  });
-  return dist;
-}
-
-function matchSelector(el, selector) {
-  return [
-    'matches',
-    'webkitMatchesSelector',
-    'mozMatchesSelector',
-    'msMatchesSelector',
-    'oMatchesSelector'
-  ].reduce((rst, method) => rst || (typeof el[method] === 'function' && el[method].call(el, selector)), false);
-}
+import {
+  noop,
+  range,
+  merge
+} from './util';
 
 class Draggable extends React.Component {
   static displayName = 'Draggable'

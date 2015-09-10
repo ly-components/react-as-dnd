@@ -1,47 +1,34 @@
 body {
   padding: 20px;
 }
+.ctn {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  background-color: #eee;
+}
 .container {
   position: relative;
   width: 800px;
   height: 800px;
   background-color: #eee;
 }
-.header {
+
+.square {
+  width: 100px;
   height: 100px;
-  background: green;
-}
-.content {
-  height: 200px;
-  background-color: aliceblue;
+  background-color: #16a085;
 }
 
+#dragger .square {
+  background-color: #2F4F4F;
+}
 
-.react-as-number-input {
-  position: relative;
-  display: inline-block;
-  height: 30px;
-  padding: 0 10px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-  .react-as-number-input-line {
-    background-color: #666;
-    position: absolute;
-    height: 4px;
-    border-radius: 2px;
-    left: 10px;
-    right: 10px;
-    top: 50%;
-    margin-top: -2px;
-  }
-  .react-as-number-input-btn {
-    display: block;
-    background-color: #16a085;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    transition: all .2s ease-out;
-  }
+#dragger .dragger {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #16a085;
 }
