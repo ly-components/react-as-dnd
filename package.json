@@ -1,6 +1,6 @@
 {
   "name": "react-as-dnd",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "一个React的拖拽组件",
   "main": "src/index.js",
   "scripts": {

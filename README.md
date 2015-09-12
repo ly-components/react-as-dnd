@@ -37,7 +37,7 @@ start: { x: 0, y: 0 }, //初始时相对offsetParent的位移
 grid: { x: 1, y: 1 }, //拖拽网格宽高
 dragger: null, //拖拽区域选择器，字符串，为null时内容均可作为拖拽区域
 axis: 'both', //拖拽轴，有'both'，'x'，'y'三种
-limit: null, //拖拽的限制，可以为'parent'或一个{x:Number, y:Number}对象，为parent时现在在offsetParent内部，为对象时指定最大位移
+limit: null, //拖拽的限制，详见下面的介绍
 shadow: true, //是否需要生成影子元素，为true则生成
 zIndex: 9999, //指定拖拽元素使用的z-index
 onDragStart: noop, //拖拽起始回调
@@ -56,6 +56,53 @@ onDragStart、onDragEnd、onDragMove都会传递一个事件对象，事件对�
 * dragOffsetY: 本次拖拽产生的y位移
 * dragShowX: 本次拖拽的结果x位移
 * dragShowY: 本次拖拽的结果y位移
+
+## 拖拽区域限制
+
+通过limit指定拖拽区域限制，格式如下：
+
+格式为：
+
+```javascript
+limit: null|'parent'|{
+  x: null|'parent'|[null|'parent'|Number, null|'parent'|Number],
+  y: null|'parent'|[null|'parent'|Number, null|'parent'|Number]
+}
+```
+
+可以为x轴，y轴分别指最大位移限制和最小位移限制
+
+* 限制为`null`时表示不限制
+* 为`'parent'`时表示限制父元素内
+* 为数字时表示最大偏移数
+
+可直接指定或在轴上指定，如下规则是等价的：
+
+```javascript
+limit: 'parent'
+//等同于
+limit: {
+  x: 'parent',
+  y: 'parent'
+}
+//等同于
+limit: {
+  x: ['parent', 'parent'],
+  y: ['parent', 'parent']
+}
+```
+
+```javascript
+limit: {
+  x: [-100, 'parent'],
+  y: null
+}
+//等同于
+limit: {
+  x: [-100, 'parent'],
+  y: [null, null]
+}
+```
 
 ## Development
 

@@ -15,6 +15,11 @@ import {
   merge
 } from './util';
 
+const propMapping = {
+  x: 'width',
+  y: 'height'
+};
+
 class Draggable extends React.Component {
   static displayName = 'Draggable'
   static propTypes = {
@@ -28,13 +33,10 @@ class Draggable extends React.Component {
       x: React.PropTypes.number,
       y: React.PropTypes.number
     }),
-    limit: React.PropTypes.oneOfType([
-      React.PropTypes.shape({
-        x: React.PropTypes.arrayOf(React.PropTypes.number),
-        y: React.PropTypes.arrayOf(React.PropTypes.number)
-      }),
-      React.PropTypes.oneOf(['parent', null])
-    ]),
+    limit: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.shape({
+      x: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.arrayOf(React.PropTypes.number)]),
+      y: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.arrayOf(React.PropTypes.number)])
+    })]),
     onDragEnd: React.PropTypes.func,
     onDragMove: React.PropTypes.func,
     onDragStart: React.PropTypes.func,
@@ -78,6 +80,7 @@ class Draggable extends React.Component {
     this._handleMouseDown = this._handleMouseDown.bind(this);
     this._handleMouseMove = this._handleMouseMove.bind(this);
     this._handleMouseUp = this._handleMouseUp.bind(this);
+    this._getLimit = this._getLimit.bind(this);
   }
   componentWillUnmount() {
     document.removeEventListener('mousemove', this._handleMouseMove);
@@ -94,28 +97,46 @@ class Draggable extends React.Component {
       offsetX: 0,
       offsetY: 0
     };
-    let elSize = getOuterSize(React.findDOMNode(this).querySelector('.react-as-dnd-content'));
-    let limit = this.props.limit;
-    if (!limit)
-      this._limitOffset = {
-        x: [ -Infinity, Infinity ],
-        y: [ -Infinity, Infinity ]
-      };
-    else if (limit === 'parent') {
-      let parentSize = getInnerSize(React.findDOMNode(this).offsetParent);
-      this._limitOffset = {
-        x: [ -this.state.x, parentSize.width - this.state.x - elSize.width ],
-        y: [ -this.state.y, parentSize.height - this.state.y - elSize.height ]
-      };
-    } else
-      this._limitOffset = {
-        x: [ limit.x[0] - this.state.x, limit.x[1] - this.state.x ],
-        y: [ limit.y[0] - this.state.y, limit.y[1] - this.state.y ]
-      };
+    this._limitOffset = this._getLimit();
     document.addEventListener('mousemove', this._handleMouseMove, false);
     document.addEventListener('mouseup', this._handleMouseUp, false);
     this.setState(state);
     this.fireAll('dragStart', this._createEventObj(e, merge({}, oldState, state)));
+  }
+  _getLimit() {
+    let elSize = getOuterSize(React.findDOMNode(this).querySelector('.react-as-dnd-content'));
+    let parentSize = getInnerSize(React.findDOMNode(this).offsetParent);
+    let limit = this.props.limit;
+    !limit && (limit = {
+      x: null,
+      y: null
+    });
+    typeof limit === 'string' && (limit = {
+      x: limit,
+      y: limit
+    });
+    let rst = {};
+    ['x', 'y'].forEach(axis => {
+      let axisLimit = limit[axis];
+      let prop = propMapping[axis];
+      (!axisLimit) && (axisLimit = [null, null]);
+      (axisLimit === 'parent') && (axisLimit = ['parent', 'parent']);
+      rst[axis] = [];
+      if(axisLimit[0] === 'parent')
+        rst[axis][0] = -this.state[axis];
+      else if(typeof axisLimit[0] === 'number')
+        rst[axis][0] = axisLimit[0] - this.state[axis];
+      else
+        rst[axis][0] = -Infinity;
+
+      if(axisLimit[1] === 'parent')
+        rst[axis][1] = parentSize[prop] - this.state[axis] - elSize[prop];
+      else if(typeof axisLimit[1] === 'number')
+        rst[axis][1] = axisLimit[1] - this.state[axis];
+      else
+        rst[axis][1] = Infinity;
+    });
+    return rst;
   }
   _createEventObj(e, state) {
     return merge(e, {

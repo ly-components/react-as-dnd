@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "221844501fd24d2c8388"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bb4ccbf2c8b1a9618642"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8043,9 +8043,9 @@
 	  { className: 'ctn' },
 	  _react2['default'].createElement(
 	    _srcIndex2['default'],
-	    { limit: {
-	        x: [0, 100],
-	        y: [0, 100]
+	    { start: { x: 100, y: 0 }, limit: {
+	        x: [100, 'parent'],
+	        y: 'parent'
 	      } },
 	    _react2['default'].createElement('div', { className: 'square' })
 	  )
@@ -28919,6 +28919,11 @@
 
 	var _util = __webpack_require__(235);
 
+	var propMapping = {
+	  x: 'width',
+	  y: 'height'
+	};
+
 	var Draggable = (function (_React$Component) {
 	  function Draggable(props) {
 	    _classCallCheck(this, Draggable);
@@ -28934,6 +28939,7 @@
 	    this._handleMouseDown = this._handleMouseDown.bind(this);
 	    this._handleMouseMove = this._handleMouseMove.bind(this);
 	    this._handleMouseUp = this._handleMouseUp.bind(this);
+	    this._getLimit = this._getLimit.bind(this);
 	  }
 
 	  _inherits(Draggable, _React$Component);
@@ -28956,25 +28962,40 @@
 	        offsetX: 0,
 	        offsetY: 0
 	      };
-	      var elSize = (0, _domHelper.getOuterSize)(_react2['default'].findDOMNode(this).querySelector('.react-as-dnd-content'));
-	      var limit = this.props.limit;
-	      if (!limit) this._limitOffset = {
-	        x: [-Infinity, Infinity],
-	        y: [-Infinity, Infinity]
-	      };else if (limit === 'parent') {
-	        var parentSize = (0, _domHelper.getInnerSize)(_react2['default'].findDOMNode(this).offsetParent);
-	        this._limitOffset = {
-	          x: [-this.state.x, parentSize.width - this.state.x - elSize.width],
-	          y: [-this.state.y, parentSize.height - this.state.y - elSize.height]
-	        };
-	      } else this._limitOffset = {
-	        x: [limit.x[0] - this.state.x, limit.x[1] - this.state.x],
-	        y: [limit.y[0] - this.state.y, limit.y[1] - this.state.y]
-	      };
+	      this._limitOffset = this._getLimit();
 	      document.addEventListener('mousemove', this._handleMouseMove, false);
 	      document.addEventListener('mouseup', this._handleMouseUp, false);
 	      this.setState(state);
 	      this.fireAll('dragStart', this._createEventObj(e, (0, _util.merge)({}, oldState, state)));
+	    }
+	  }, {
+	    key: '_getLimit',
+	    value: function _getLimit() {
+	      var _this = this;
+
+	      var elSize = (0, _domHelper.getOuterSize)(_react2['default'].findDOMNode(this).querySelector('.react-as-dnd-content'));
+	      var parentSize = (0, _domHelper.getInnerSize)(_react2['default'].findDOMNode(this).offsetParent);
+	      var limit = this.props.limit;
+	      !limit && (limit = {
+	        x: null,
+	        y: null
+	      });
+	      typeof limit === 'string' && (limit = {
+	        x: limit,
+	        y: limit
+	      });
+	      var rst = {};
+	      ['x', 'y'].forEach(function (axis) {
+	        var axisLimit = limit[axis];
+	        var prop = propMapping[axis];
+	        !axisLimit && (axisLimit = [null, null]);
+	        axisLimit === 'parent' && (axisLimit = ['parent', 'parent']);
+	        rst[axis] = [];
+	        if (axisLimit[0] === 'parent') rst[axis][0] = -_this.state[axis];else if (typeof axisLimit[0] === 'number') rst[axis][0] = axisLimit[0] - _this.state[axis];else rst[axis][0] = -Infinity;
+
+	        if (axisLimit[1] === 'parent') rst[axis][1] = parentSize[prop] - _this.state[axis] - elSize[prop];else if (typeof axisLimit[1] === 'number') rst[axis][1] = axisLimit[1] - _this.state[axis];else rst[axis][1] = Infinity;
+	      });
+	      return rst;
 	    }
 	  }, {
 	    key: '_createEventObj',
@@ -29074,10 +29095,10 @@
 	        x: _react2['default'].PropTypes.number,
 	        y: _react2['default'].PropTypes.number
 	      }),
-	      limit: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.shape({
-	        x: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number),
-	        y: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)
-	      }), _react2['default'].PropTypes.oneOf(['parent', null])]),
+	      limit: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.shape({
+	        x: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)]),
+	        y: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)])
+	      })]),
 	      onDragEnd: _react2['default'].PropTypes.func,
 	      onDragMove: _react2['default'].PropTypes.func,
 	      onDragStart: _react2['default'].PropTypes.func,

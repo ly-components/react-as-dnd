@@ -62,9 +62,9 @@ React.render(
 
 React.render(
   <div className="ctn">
-    <Draggable limit={{
-      x: [0, 100],
-      y: [0, 100]
+    <Draggable start={{x: 100, y: 0}} limit={{
+      x: [100, 'parent'],
+      y: 'parent'
     }}>
       <div className="square"></div>
     </Draggable>

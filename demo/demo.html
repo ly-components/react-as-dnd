@@ -95,14 +95,14 @@ React.render(
 		</xmp>
 	</section>
 	<section>
-		<h2>限制最大位移</h2>
+		<h2>限制移动区域</h2>
 		<div id="limit-area"></div>
 		<xmp>
 React.render(
   <div className="ctn">
-    <Draggable limit={{
-      x: [0, 100],
-      y: [0, 100]
+    <Draggable start={{x: 100, y: 0}} limit={{
+      x: [100, 'parent'],
+      y: 'parent'
     }}>
       <div className="square"></div>
     </Draggable>
