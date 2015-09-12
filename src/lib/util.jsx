@@ -1,9 +1,11 @@
 
 const noop = () => {};
 
-function range(val, min, max) {
-  val = val > max ? max : val;
-  val = val < min ? min : val;
+function range(val, min, max, grid) {
+  while(val > max)
+    val -= grid;
+  while(val < min)
+    val += grid;
   return val;
 }
 

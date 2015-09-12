@@ -29,10 +29,10 @@ class Draggable extends React.Component {
     children: React.PropTypes.node,
     closeSelectOnDrag: React.PropTypes.bool,
     dragger: React.PropTypes.string,
-    grid: React.PropTypes.shape({
+    grid: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.shape({
       x: React.PropTypes.number,
       y: React.PropTypes.number
-    }),
+    })]),
     limit: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.shape({
       x: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.arrayOf(React.PropTypes.number)]),
       y: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.arrayOf(React.PropTypes.number)])
@@ -158,8 +158,8 @@ class Draggable extends React.Component {
     let limit = this._limitOffset;
     let oldState = this.state;
     let state = {
-      offsetX: axisX ? range((Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x), limit.x[0], limit.x[1]) : 0,
-      offsetY: axisY ? range((Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y), limit.y[0], limit.y[1]) : 0
+      offsetX: axisX ? range((Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x), limit.x[0], limit.x[1], grid.x) : 0,
+      offsetY: axisY ? range((Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y), limit.y[0], limit.y[1], grid.y) : 0
     };
     if(state.offsetX === oldState.offsetX && state.offsetY === oldState.offsetY) return;
     this.setState(state);

@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bb4ccbf2c8b1a9618642"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "691d1fdcbd699d0a08ab"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -29022,8 +29022,8 @@
 	      var limit = this._limitOffset;
 	      var oldState = this.state;
 	      var state = {
-	        offsetX: axisX ? (0, _util.range)(Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x, limit.x[0], limit.x[1]) : 0,
-	        offsetY: axisY ? (0, _util.range)(Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y, limit.y[0], limit.y[1]) : 0
+	        offsetX: axisX ? (0, _util.range)(Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x, limit.x[0], limit.x[1], grid.x) : 0,
+	        offsetY: axisY ? (0, _util.range)(Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y, limit.y[0], limit.y[1], grid.y) : 0
 	      };
 	      if (state.offsetX === oldState.offsetX && state.offsetY === oldState.offsetY) return;
 	      this.setState(state);
@@ -29091,10 +29091,10 @@
 	      children: _react2['default'].PropTypes.node,
 	      closeSelectOnDrag: _react2['default'].PropTypes.bool,
 	      dragger: _react2['default'].PropTypes.string,
-	      grid: _react2['default'].PropTypes.shape({
+	      grid: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.shape({
 	        x: _react2['default'].PropTypes.number,
 	        y: _react2['default'].PropTypes.number
-	      }),
+	      })]),
 	      limit: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.shape({
 	        x: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)]),
 	        y: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number)])
@@ -29788,9 +29788,9 @@
 
 	var noop = function noop() {};
 
-	function range(val, min, max) {
-	  val = val > max ? max : val;
-	  val = val < min ? min : val;
+	function range(val, min, max, grid) {
+	  while (val > max) val -= grid;
+	  while (val < min) val += grid;
 	  return val;
 	}
 
