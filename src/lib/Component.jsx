@@ -158,8 +158,8 @@ class Draggable extends React.Component {
     let limit = this._limitOffset;
     let oldState = this.state;
     let state = {
-      offsetX: axisX ? range((Math.floor((e.pageX - this.state.dragStartX) / grid.x) * grid.x), limit.x[0], limit.x[1], grid.x) : 0,
-      offsetY: axisY ? range((Math.floor((e.pageY - this.state.dragStartY) / grid.y) * grid.y), limit.y[0], limit.y[1], grid.y) : 0
+      offsetX: axisX ? range((Math.round((e.pageX - this.state.dragStartX) / grid.x) * grid.x), limit.x[0], limit.x[1], grid.x) : 0,
+      offsetY: axisY ? range((Math.round((e.pageY - this.state.dragStartY) / grid.y) * grid.y), limit.y[0], limit.y[1], grid.y) : 0
     };
     if(state.offsetX === oldState.offsetX && state.offsetY === oldState.offsetY) return;
     this.setState(state);
